@@ -1,8 +1,11 @@
 # fw_data_store
 A python library for database handling with Create-Read-Delete functions. 
 
+(Kindly note : The unit test for this library is saved as unit_test.ipynb and was done in a python notebook file (.ipynb) which can be accessed through Jupyter Notebooks, Google colab or Github itself. Thank you.)
+
 ###### Language written in: Python 
 ###### OS used: Windows
+###### package location : data_store
 
 data_store provides basic database handling functions like, Create,Read and Delete. The data is stored as key-value pairs in a JSON format. 
 
@@ -167,5 +170,5 @@ Some instances where an exception will be raised include:
 3) Creating new data when the data file is > 1 GB.
 4) Other Corner cases.
 
-A demonstration of the exception handling is done in the unit_test python notebook. 
+A demonstration of the exception handling is done in the unit_test python notebook. JSON format was selected for the database format as it shows faster read/write speeds in comparison to other traditional formats such as pickle and csv.  
 
