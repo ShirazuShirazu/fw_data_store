@@ -60,9 +60,15 @@ class data_store:
             raise Exception('Key value is not a string. Inputed key is of type: ' + str(type(key)))
             return False
 
-    def Create(self, key, value, ttl=None):
+    def Create(self, key='', value='', ttl=None):
 
         self.verifykey(key)
+
+        if key == '':
+            raise Exception('No key was provided.')
+
+        if value == '':
+            value = None
 
         # Checks if the size of the value exceeds 16 KB.
         if sys.getsizeof(value) > 16000:
@@ -92,11 +98,14 @@ class data_store:
 
         print('Value added')
 
-    def Read(self, key):
+    def Read(self, key=''):
 
         # Finds the key in the data store and displays the value, if the ttl has not crossed.
 
         self.verifykey(key)
+
+        if key == '':
+            raise Exception('Expecting a key to be read.')
 
         self.datalock.acquire()
 
@@ -115,18 +124,22 @@ class data_store:
         # if the ttl was crossed, an error is raised
 
         if (time.time() < ttl) or (ttl is 0):
-            print(json.dumps(self.data[key]['value']))
             self.datalock.release()
+            return json.dumps(self.data[key]['value'])
+
 
         else:
             self.datalock.release()
             raise Exception("Key's Time-To-Live has expired. Unable to read.")
 
-    def Delete(self, key):
+    def Delete(self, key=''):
 
         # Finds if the inputted key is present and if so, deletes it from the data store.
 
         self.verifykey(key)
+
+        if key == '':
+            raise Exception('Expecting a key to be read.')
 
         self.datalock.acquire()
 
